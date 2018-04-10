@@ -1,0 +1,25 @@
+<tr class="md-table-content-row ma-lu-player cur-p">
+    <td class="md-table-content ta-center"><span class="ps-5">{{ player.fantasyPointsPerGame.toFixed(1) }}</span></td>
+    <td class="md-table-content ta-center"><span class="ps-5">0</span></td>
+    <td class="md-table-content ta-center">
+        <a ng-click="showalert()" class="ps-5">{{ player.fantasyPointsPerGame.toFixed(1) }}</a>
+    </td>
+    <td class="md-table-content ta-center"><img class="player-img" ng-src="{{ player.imageUrl }}"/></td>
+    <td></td>
+    <td class="md-table-content ta-start">
+    <div class="ps-5 lu-stats">
+            <div class="first"><a>{{ player.firstName }} {{ player.lastName }}</a></div>
+            <div class="second">
+                <strong>{{ player.team.abbr }}</strong><span> {{ player.game.opponent }}, </span> {{ player.game.statusType }}
+            </div>
+            <div class="third">
+                {{ player.stats.min }} MIN,
+                {{ player.stats.pts }} PTS,
+                {{ player.stats.threepts }} 3PT
+                {{ player.stats.reb }} REB,
+                {{ player.stats.ast }} AST,
+                {{ player.stats.to }} TO
+            </div>
+        </div>
+    </td>
+</tr>

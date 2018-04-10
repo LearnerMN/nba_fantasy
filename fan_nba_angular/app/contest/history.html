@@ -1,0 +1,35 @@
+<!--<p>-->
+<!--{{ line_ups }}-->
+<!--</p>-->
+<div data-layout="row" class="ma-header" data-layout-align="space-between center">
+    <div>
+        <h4 class="md-title">My Contests History</h4>
+    </div>
+</div>
+<table md-colresize="md-colresize" class="md-table ma-table history">
+    <thead>
+    <tr class="md-table-headers-row">
+        <th class="md-table-header ta-start">Contest ID</th>
+        <th class="md-table-header ta-start">Contest Name</th>
+        <th class="md-table-header ta-start">Date (ET)</th>
+        <th class="md-table-header ta-start">Points (Rank)</th>
+        <th class="md-table-header ta-end">Entry Fee</th>
+        <th class="md-table-header ta-end pe-10">Winnings</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="lineup in line_ups" class="md-table-content-row ma-lu-player">
+        <td class="md-table-content ta-start"><span class="ps-5">#{{lineup.contest.code}}</span></td>
+        <td class="md-table-content ta-start">
+            <!--<a ng-click="getDetail(lineup.contest.id)">-->
+            <a ng-click="getDetail(lineup.contest.id,lineup.entry_id)" class="ps-5">
+                {{lineup.contest.title}}
+            </a>
+        </td>
+        <td class="md-table-content ta-start"><span class="ps-5">{{ lineup.contest.startTime  | asDate | date:'MMM d, h:mm a'}}</span></td>
+        <td class="md-table-content ta-start"><span class="ps-5">{{lineup.userPoints}}</span></td>
+        <td class="md-table-content ta-end"><span class="pe-10">{{lineup.contest.entryFee | asFree}}</span></td>
+        <td class="md-table-content ta-end"><span class="pe-10"></span></td>
+    </tr>
+    </tbody>
+</table>

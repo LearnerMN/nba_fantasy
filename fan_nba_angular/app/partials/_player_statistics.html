@@ -1,0 +1,80 @@
+<md-dialog class="player-static-popup">
+    <!--<div class="close-dialog" ng-click="cancel()"><i class="material-icons">close</i></div>-->
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <md-button class="md-icon-button" ng-click="cancel()"><i class="material-icons">close</i></md-button>
+        </div>
+    </md-toolbar>
+    <md-content>
+        <div felx>
+            <div><span>{{ player.team.name }} - </span><span>{{ position[player.primaryPosition] }}</span><span> #{{ player.jerseyNumber }}</span></div>
+            <div><h2 class="md-display-1">{{ player.firstName }}{{ player.lastName }}</h2></div>
+        </div>
+        <div flex background-image="{{player.largeImageUrl}}" style="width: 250px;height: 175px;"></div>
+    </md-content>
+    <md-dialog-content style="min-width:725px;max-height:200px; ">
+        <!--{{ player }}-->
+        <table class="md-table ma-lineup">
+            <thead>
+            <tr class="md-table-headers-row">
+                <th class="md-table-header py-6 px-4 ta-start">Date</th>
+                <th class="md-table-header py-6 px-4 ta-start">Opp</th>
+                <th class="md-table-header py-6 px-4 ta-start">Result</th>
+                <th class="md-table-header py-6 px-4 ta-end">Fan Pts</th>
+                <th class="md-table-header py-6 px-4 ta-end">MIN</th>
+                <th class="md-table-header py-6 px-4 ta-end">PTS</th>
+                <th class="md-table-header py-6 px-4 ta-center">3PT</th>
+                <th class="md-table-header py-6 px-4 ta-center">REB</th>
+                <th class="md-table-header py-6 px-4 ta-center">AST</th>
+                <th class="md-table-header py-6 px-4 ta-center">ST</th>
+                <th class="md-table-header py-6 px-4 ta-center">BlK</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="log in logs" class="md-table-content-row ma-lu-player">
+                <td class="py-6 px-4 ta-start">{{ log.startTime | asDate | date:'MMM d'}}</td>
+                <td class="py-6 px-4 ta-start">{{ log.away_team.abbr }}</td>
+                <td class="py-6 px-4 ta-start">
+                    {{ (log.homeScore > log.awayScore) ? 'W' : 'L' }} {{log.homeScore }}-{{ log.awayScore }}
+                </td>
+                <td class="py-6 px-4 ta-end">{{ log.stats.fpts }}</td>
+                <td class="py-6 px-4 ta-end">{{ log.stats.min }}</td>
+                <td class="py-6 px-4 ta-end">{{ log.stats.pts }}</td>
+                <td class="py-6 px-4 ta-center">{{ log.stats.threept }}</td>
+                <td class="py-6 px-4 ta-center">{{ log.stats.reb }}</td>
+                <td class="py-6 px-4 ta-center">{{ log.stats.ast }}</td>
+                <td class="py-6 px-4 ta-center">{{ log.stats.st }}</td>
+                <tD class="py-6 px-4 ta-center">{{ log.stats.blk }}</tD>
+            </tr>
+            </tbody>
+        </table>
+    </md-dialog-content>
+    <!--<md-dialog-content style="max-width:800px;max-height:810px; ">-->
+        <!--<md-tabs md-dynamic-height md-border-bottom>-->
+            <!--<md-tab label="one">-->
+                <!--<md-content class="md-padding">-->
+                    <!--<h1 class="md-display-2">Tab One</h1>-->
+                    <!--<p>{{ player }}</p>-->
+                <!--</md-content>-->
+            <!--</md-tab>-->
+            <!--<md-tab label="two">-->
+
+                <!--<md-content class="md-padding">-->
+                    <!--<h1 class="md-display-2">Tab Two</h1>-->
+                    <!--<p>-->
+                        <!--Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus-->
+                        <!--volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium-->
+                        <!--ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi. Aliquam-->
+                        <!--erat volutpat. Nam placerat, tortor in ultrices porttitor, orci enim rutrum enim, vel tempor-->
+                        <!--sapien arcu a tellus. Vivamus convallis sodales ante varius gravida. Curabitur a purus vel augue-->
+                        <!--ultrices ultricies id a nisl. Nullam malesuada consequat diam, a facilisis tortor volutpat et.-->
+                        <!--Sed urna dolor, aliquet vitae posuere vulputate, euismod ac lorem. Sed felis risus, pulvinar at-->
+                        <!--interdum quis, vehicula sed odio. Phasellus in enim venenatis, iaculis tortor eu, bibendum ante.-->
+                        <!--Donec ac tellus dictum neque volutpat blandit. Praesent efficitur faucibus risus, ac auctor-->
+                        <!--purus porttitor vitae. Phasellus ornare dui nec orci posuere, nec luctus mauris semper.-->
+                    <!--</p>-->
+                <!--</md-content>-->
+            <!--</md-tab>-->
+        <!--</md-tabs>-->
+    <!--</md-dialog-content>-->
+</md-dialog>

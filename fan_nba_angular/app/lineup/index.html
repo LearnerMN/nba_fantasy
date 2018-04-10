@@ -1,0 +1,244 @@
+<div>
+    <div data-layout="row" class="ma-header" data-layout-align="space-between center">
+        <div>
+            <div>
+                <h4 class="md-title ma-mg-0 ma-mgb-4">{{lineup.contestData.title}}</h4>
+            </div>
+            <div class="ma-cont-start">
+                Starts {{lineup.contestData.startTime | asDate | date: 'EEEE, h:mm a'}} EST
+                (<span
+                    ng-click="lineup.showContestData($event)"
+                    class="link-color cur-p">{{matches.length}}
+                NBA Games</span>)
+            </div>
+        </div>
+        <div data-layout="row" data-layout-align="space-between center" class="py-16">
+            <div class="px-20">
+                <div class="ma-cont-prop-key">ENTRIES</div>
+                <div class="ma-cont-prop-value">{{lineup.contestData.entryCount}}/{{lineup.contestData.entryLimit}}
+                </div>
+            </div>
+            <div class="px-20">
+                <div class="ma-cont-prop-key">ENTRY FEE</div>
+                <div class="ma-cont-prop-value">{{ lineup.contestData.entryFee | asFree}}</div>
+            </div>
+            <div class="px-20">
+                <div class="ma-cont-prop-key">PRIZE POOL</div>
+                <div class="ma-cont-prop-value">{{ lineup.contestData.totalPrize }}$</div>
+            </div>
+        </div>
+    </div>
+    <div data-layout="row">
+        <div data-flex="60">
+            <div>
+                <div class="horizontal wrap" data-layout="row">
+                    <div data-layout="column" data-layout-align="center center" class="hr-game-size px-8">
+                        <div>{{matches.length}}</div>
+                        <div>GAMES</div>
+                    </div>
+                    <div class="ma-hr-prev btn prevPage" data-layout="row" data-layout-align="center center">
+                        <i class="material-icons nav md-22">chevron_left</i>
+                    </div>
+                    <div class="frame" id="contestMatches" data-flex="100">
+                        <ul class="items">
+                            <li class="ma-hr-team" ng-repeat="match in matches"
+                                sly-horizontal-repeat data-sly-options="{speed: 300,mouseDragging:0}">
+                                <div class="ma-hr-box">
+                                    <div class="py-6 px-8">
+                                        <div class="ma-hr-time">{{ match.startTime | asDate | date: 'EEEE, h:mm a' }}
+                                        </div>
+                                        <div class="ma-hr-team">{{ match.home_team.abbr }}</div>
+                                        <div class="ma-hr-team">{{ match.away_team.abbr }}</div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="ma-hr-next btn nextPage">
+                        <i class="material-icons nav md-22">chevron_right</i>
+                    </div>
+                </div>
+                <div class="vertical wrap">
+                    <div data-layout="row" class="pe-14" data-layout-align="space-between center">
+                        <div data-layout-align="left center">
+                            <ul class="list-pos">
+                                <li class="md-raised"
+                                    ng-repeat="position in lineup.positions"
+                                    ng-class="!(position.pos==lineup.targetPosition) ? '' : 'active'">
+                                    <a ng-click="lineup.findByTargetPosition(position.pos)">{{position.name }}</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div data-layout-align="center center" class="px-8">
+                            <md-input-container class="md-icon-float md-block no-errors">
+                                <label for="searchPlayer">Search Players</label>
+                                <md-icon><i class="material-icons md-22">search</i></md-icon>
+                                <input id="searchPlayer" ng-model="lineup.search.$"
+                                       data-ng-change="lineup.applySortingAndFiltering()">
+                            </md-input-container>
+                        </div>
+                    </div>
+
+                    <div class="scrollbar">
+                        <div class="handle">
+                            <div class="mousearea"></div>
+                        </div>
+                    </div>
+
+                    <div class="frame" id="matchPlayers">
+                        <ul class="items" data-layout="column">
+                            <li ng-repeat="player in filteredPlayers"
+                                sly-vertical-repeat data-sly-options="{speed: 50}"
+                                data-layout="row"
+                                class="players">
+                                <div class="image">
+                                    <img ng-src="{{player.imageUrl}}"/>
+                                </div>
+                                <div class="py-10 px-6 pos">
+                                    {{player.primaryPosition}}
+                                </div>
+                                <div class="space"></div>
+                                <div class="py-10 px-6 name">
+                                    {{ player.firstName}} {{player.lastName}}
+                                </div>
+                                <div class="py-10 px-6 oponent">
+                                    <strong>{{player.team.abbr}}</strong>{{ player.game.opponent}}
+                                </div>
+                                <div class="py-10 px-6 fppg">
+                                    {{player.fantasyPointsPerGame}}
+                                </div>
+                                <div class="py-10 px-6 salary"
+                                     ng-class="lineup.getTotalSalary() < player.salary ? 'c-neg': ''">
+                                    {{player.salary}}
+                                </div>
+                                <div class="py-10 px-6 add_remove" data-layout="row" data-layout-align="center center">
+                                    <div ng-class="!(player.isAdded) ? 'ma-add-cBtn' : 'ma-remove-cBtn'"
+                                         ng-click="!(player.isAdded) ? lineup.addToLineup($index, player) : lineup.removePlayerFromLineup(player)">
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--<div class="controls center">-->
+                    <!--<p>-->
+                    <!--<button class="btn prevPage"><i class="icon-chevron-left"></i><i-->
+                    <!--class="icon-chevron-left"></i>-->
+                    <!--prevPage-->
+                    <!--</button>-->
+                    <!--<button class="btn nextPage">nextPage <i class="icon-chevron-right"></i><i-->
+                    <!--class="icon-chevron-right"></i>-->
+                    <!--</button>-->
+                    <!--</p>-->
+                    <!--</div>-->
+                </div>
+            </div>
+        </div>
+        <div data-flex="40" class="px-10">
+            <div>
+                <div data-layout="row" data-layout-align="space-between center" class="ma-mgy-10 py-6">
+                    <div class="px-20">
+                        <div class="ma-cont-prop-key">BADGET</div>
+                        <div class="ma-cont-prop-value-lu"
+                             ng-class="lineup.getTotalSalary() < 0 ? 'c-neg': 'c-pos'">$ {{lineup.getTotalSalary()}}
+                        </div>
+                    </div>
+                    <div class="px-20">
+                        <div class="ma-cont-prop-key">AVG.SALARY REMAINING</div>
+                        <div class="ma-cont-prop-value-lu">
+                            <span ng-class="lineup.getTotalSalary() < 0 ? 'c-neg': 'c-pos'">
+                                ${{lineup.calcLeftSalary()}}
+                            </span>
+                            <span class="small">({{lineup.lineup.length - lineup.getLinupSize()}} Players)</span>
+                        </div>
+                    </div>
+                    <div class="px-20">
+                        <div class="ma-cont-prop-key">AVG.FPPG</div>
+                        <div class="ma-cont-prop-value-lu">{{lineup.avgFppg()}}</div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div data-layout="row">
+                    <table md-colresize="md-colresize" class="md-table ma-lineup">
+                        <thead>
+                        <tr class="md-table-headers-row">
+                            <!--<th class="md-table-header">*</th>-->
+                            <!--<th class="md-table-header">#</th>-->
+                            <th></th>
+                            <th class="md-table-header py-6 px-4"></th>
+                            <th class="md-table-header py-6 px-4">Pos</th>
+                            <th class="md-table-header py-6 px-4 pos">Name</th>
+                            <th class="md-table-header py-6 px-4">FPPG</th>
+                            <th class="md-table-header py-6 px-4">Salary</th>
+                            <th class="md-table-header py-6 px-4"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="player in lineup.lineup" class="md-table-content-row ma-lu-player"
+                            ng-click="lineup.findByTargetPosition(player.position)">
+                            <!--<td>-->
+                            <!--<div>{{player.index}}</div>-->
+                            <!--</td>-->
+                            <!--<td>-->
+                            <!--<div>{{player.code}}</div>-->
+                            <!--</td>-->
+                            <td class="avatar">
+                                <div class="hiddenPlayer playerImage-r" background-image="{{player.image}}">
+                                </div>
+                            </td>
+                            <td class="space">
+                                <div></div>
+                            </td>
+                            <td class="pos pe-6">
+                                <div>{{player.position}}</div>
+                            </td>
+                            <td class="name px-4">
+                                <div>{{player.name}}</div>
+                            </td>
+                            <td class="fppg">
+                                <div>{{player.fppg}}</div>
+                            </td>
+                            <td class="salary">
+                                <div>${{player.salary}}</div>
+                            </td>
+                            <td class="remove">
+                                <div data-layout="row" data-layout-align="center center">
+                                    <div class="ma-remove-cBtn"
+                                         ng-show="player.index > -1"
+                                         ng-click="lineup.removePlayerFromLineup(player)">
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="p-10" ng-show="lineup.getLinupSize()">
+                    <div class="cur-p"
+                         data-layout="row"
+                         data-layout-align="left center"
+                         ng-click="lineup.clearLineup()">
+                        <i class="material-icons md-22 ma-mg-0">remove_circle_outline</i>
+                        Clear all
+                    </div>
+                </div>
+            </div>
+            <div data-layout="row" data-layout-align="space-between center" class="py-14 px-10 ma-lu-submit">
+                <div>
+                    <h4 class="md-title ma-mg-0 ma-mgb-4">{{lineup.getLinupSize() | asNo}} player selected</h4>
+
+                    <div class="ma-cont-prop-key">You need {{lineup.lineup.length - lineup.getLinupSize()}} players for
+                        your lineup
+                    </div>
+                </div>
+                <div>
+                    <md-button class="md-raised md-primary"
+                               ng-disabled="!(lineup.isLineupFull(8) && !(lineup.getTotalSalary() < 0))"
+                               ng-click="showConfirm($event)">
+                        create
+                    </md-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

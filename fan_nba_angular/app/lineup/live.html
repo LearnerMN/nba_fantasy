@@ -1,0 +1,156 @@
+<div data-layout="row" class="ma-header" data-layout-align="space-between center">
+    <div>
+        <div>
+            <h4 class="md-title ma-mg-0 ma-mgb-4">{{contest.title}}</h4>
+        </div>
+        <div class="ma-cont-start">
+            Starts {{contest.startTime | asDate | date: 'EEEE, h:mm a'}} EST
+            (<span
+                ng-click="lineup.showContestData($event)"
+                class="link-color cur-p">{{contest.matches.length}}
+                NBA Games</span>)
+        </div>
+    </div>
+    <div data-layout="row" data-layout-align="space-between center" class="py-16">
+        <div class="px-20">
+            <div class="ma-cont-prop-key">ENTRIES</div>
+            <div class="ma-cont-prop-value">{{contest.entryCount}}/{{contest.entryLimit}}
+            </div>
+        </div>
+        <div class="px-20">
+            <div class="ma-cont-prop-key">ENTRY FEE</div>
+            <div class="ma-cont-prop-value">{{ contest.entryFee | asFree}}</div>
+        </div>
+        <div class="px-20">
+            <div class="ma-cont-prop-key">PRIZE POOL</div>
+            <div class="ma-cont-prop-value">{{ contest.totalPrize }}$</div>
+        </div>
+    </div>
+</div>
+<div data-layout="row">
+    <div data-flex="45" data-layout="column">
+        <table class="md-table ma-table history ma-lu">
+            <thead>
+            <tr class="md-table-headers-row">
+                <th class="md-table-header ta-center">Player</th>
+                <th class="md-table-header ta-center"></th>
+                <th class="md-table-header ta-center"></th>
+                <th class="md-table-header ta-center">FPPG</th>
+                <th class="md-table-header ta-center">PMR</th>
+                <th class="md-table-header ta-center">Points</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr x-position-for-lineup player="lineup.pos_pg" ng-click="showTabDialog($event, lineup.pos_pg.code)"></tr>
+            <tr x-position-for-lineup player="lineup.pos_sg" ng-click="showTabDialog($event, lineup.pos_sg.code)"></tr>
+            <tr x-position-for-lineup player="lineup.pos_g" ng-click="showTabDialog($event, lineup.pos_g.code)"></tr>
+            <tr x-position-for-lineup player="lineup.pos_sf" ng-click="showTabDialog($event, lineup.pos_sf.code)"></tr>
+            <tr x-position-for-lineup player="lineup.pos_pf" ng-click="showTabDialog($event, lineup.pos_pf.code)"></tr>
+            <tr x-position-for-lineup player="lineup.pos_f" ng-click="showTabDialog($event, lineup.pos_f.code)"></tr>
+            <tr x-position-for-lineup player="lineup.pos_c" ng-click="showTabDialog($event, lineup.pos_c.code)"></tr>
+            <tr x-position-for-lineup player="lineup.pos_utils" ng-click="showTabDialog($event, lineup.pos_utils.code)"></tr>
+            </tbody>
+        </table>
+    </div>
+    <div data-flex="10" data-layout="column">
+        <table class="md-table ma-table history middle-bar">
+            <thead>
+            <tr class="md-table-headers-row"><th class="md-table-header ta-center">Pos</th></tr>
+            <tr class="md-table-headers-row height-60"><th class="md-table-header ta-center">PG</th></tr>
+            <tr class="md-table-headers-row height-60"><th class="md-table-header ta-center">SG</th></tr>
+            <tr class="md-table-headers-row height-60"><th class="md-table-header ta-center">G</th></tr>
+            <tr class="md-table-headers-row height-60"><th class="md-table-header ta-center">SF</th></tr>
+            <tr class="md-table-headers-row height-60"><th class="md-table-header ta-center">PF</th></tr>
+            <tr class="md-table-headers-row height-60"><th class="md-table-header ta-center">F</th></tr>
+            <tr class="md-table-headers-row height-60"><th class="md-table-header ta-center">C</th></tr>
+            <tr class="md-table-headers-row height-60"><th class="md-table-header ta-center">UTIL</th></tr>
+            </thead>
+        </table>
+    </div>
+    <div data-flex="45" data-layout="column">
+        <table class="md-table ma-table history"
+               ng-hide="show_opponent">
+            <thead>
+            <tr class="md-table-headers-row">
+                <th class="md-table-header ta-center">Rank</th>
+                <th class="md-table-header ta-start">User</th>
+                <th class="md-table-header ta-center">Points</th>
+                <th class="md-table-header ta-center">PMR</th>
+                <th class="md-table-header ta-center">Prizes</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="usr in users" class="md-table-content-row">
+                <td class="md-table-content ta-start"><span class="ps-5">{{ usr['entry_user'].id }}</span></td>
+                <td class="md-table-content ta-start"><span class="ps-5">
+                    <img class="user-avatar small" src="assets/img/default_avatar.png"
+                         alt="{{ usr['entry_user'].name }}"/>
+                </span></td>
+                <td class="md-table-content ta-start"><span class="ps-5">{{ usr['entry_user'].name }}</span></td>
+                <td class="md-table-content ta-start">
+                    <a ng-click="showalert()" class="ps-5">
+                        {{ usr['entry_user'].email }}
+                    </a>
+                </td>
+                <td class="md-table-content ta-end"><span class="pe-10"></span></td>
+            </tr>
+            </tbody>
+        </table>
+        <!--opponent line up-->
+        <table class="md-table ma-table history ma-lu" ng-show="show_opponent">
+            <thead>
+            <tr class="md-table-headers-row">
+                <th class="md-table-header ta-center">Points</th>
+                <th class="md-table-header ta-center">PMR</th>
+                <th class="md-table-header ta-center">FPPG</th>
+                <th class="md-table-header ta-center"></th>
+                <th class="md-table-header ta-center"></th>
+                <th class="md-table-header ta-center">Player</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr x-position-for-opponent-lineup player="lineup.pos_pg" ng-click="showTabDialog($event, lineup.pos_pg.code)"></tr>
+            <tr x-position-for-opponent-lineup player="lineup.pos_sg" ng-click="showTabDialog($event, lineup.pos_sg.code)"></tr>
+            <tr x-position-for-opponent-lineup player="lineup.pos_g" ng-click="showTabDialog($event, lineup.pos_g.code)"></tr>
+            <tr x-position-for-opponent-lineup player="lineup.pos_sf" ng-click="showTabDialog($event, lineup.pos_sf.code)"></tr>
+            <tr x-position-for-opponent-lineup player="lineup.pos_pf" ng-click="showTabDialog($event, lineup.pos_pf.code)"></tr>
+            <tr x-position-for-opponent-lineup player="lineup.pos_f" ng-click="showTabDialog($event, lineup.pos_f.code)"></tr>
+            <tr x-position-for-opponent-lineup player="lineup.pos_c" ng-click="showTabDialog($event, lineup.pos_c.code)"></tr>
+            <tr x-position-for-opponent-lineup player="lineup.pos_utils" ng-click="showTabDialog($event, lineup.pos_utils.code)"></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="horizontal wrap" data-layout="row">
+    <div data-layout="column" data-layout-align="center center" class="hr-game-size px-8 normal">
+        <div>{{contest.matches.length}}</div>
+        <div>GAMES</div>
+    </div>
+    <div class="ma-hr-prev btn prevPage" data-layout="row" data-layout-align="center center">
+        <i class="material-icons nav md-22">chevron_left</i>
+    </div>
+    <div class="frame" id="contestMatches" data-flex="100">
+        <ul class="items">
+            <li class="ma-hr-team history" ng-repeat="match in contest.matches"
+                sly-horizontal-repeat data-sly-options="{speed: 300,mouseDragging:0}">
+                <div class="ma-hr-box">
+                    <div class="py-6 px-8">
+                        <div class="ma-hr-time">{{ match.status }}</div>
+                        <div data-layout="row" data-layout-align="space-between center">
+                            <div class="ma-hr-team">{{ match.home_team.abbr }}</div>
+                            <div class="ma-hr-team">{{ match.homeScore }}</div>
+                        </div>
+                        <div data-layout="row" data-layout-align="space-between center">
+                            <div class="ma-hr-team">{{ match.away_team.abbr }}</div>
+                            <div class="ma-hr-team">{{ match.awayScore }}</div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="ma-hr-next btn nextPage">
+        <i class="material-icons nav md-22">chevron_right</i>
+    </div>
+</div>

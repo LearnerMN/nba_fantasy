@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="window_background">#FF000000</color>
+    <color name="color_primary">#212629</color>
+    <color name="color_primary_dark">#090A0A</color>
+    <color name="color_accent">#0D9AFF</color>
+    <color name="color_line">#2B2F31</color>
+    <color name="color_back_active_contest">#171A1C</color>
+
+    <color name="color_green_line">#00C763</color>
+    <color name="color_green_line_bg">#131618</color>
+    <color name="color_player_recycler_view">#090A0A</color>
+    <color name="color_submit_btn_bg">#303030</color>
+    <color name="color_contest_list_bg">#090A0A</color>
+
+    <color name="content_view">#1B1F21</color>
+    <color name="background">#090A0A</color>
+</resources>

@@ -1,0 +1,186 @@
+<div>
+    <div data-layout="row" class="ma-header" data-layout-align="space-between center">
+        <div>
+            <div>
+                <h4 class="md-title ma-mg-0 ma-mgb-4">
+                    {{entryLineup.contest.title}}
+                </h4>
+            </div>
+        </div>
+        <div data-layout="row" data-layout-align="space-between center" class="py-16">
+            <div class="px-20">
+                <div class="ma-cont-prop-key">ENTRIES</div>
+                <div class="ma-cont-prop-value">{{entryLineup.contest.entryCount}}/{{entryLineup.contest.entryLimit}}
+                </div>
+            </div>
+            <div class="px-20">
+                <div class="ma-cont-prop-key">ENTRY FEE</div>
+                <div class="ma-cont-prop-value">{{ entryLineup.contest.entryFee | asFree}}</div>
+            </div>
+            <div class="px-20">
+                <div class="ma-cont-prop-key">PRIZE POOL</div>
+                <div class="ma-cont-prop-value">{{ entryLineup.contest.totalPrize }}$</div>
+            </div>
+        </div>
+    </div>
+    <div class='time-to' data-layout="row" data-layout-align="center center">
+        <div data-layout="column" class="ma-cd-div">
+            <div class="time" countdown='' date='{{ matches[0].startTime }}'>&nbsp;</div>
+            <div><p class="md-title">{{ entryLineup.contest.entryLimit - entryLineup.contest.entryCount }} more people can join this contest</p></div>
+            <div><md-button class="md-primary md-raised">Invite your friends</md-button></div>
+        </div>
+        <!--<div data-layout="row" data-flex="50">-->
+            <!--<div ng-repeat="i in [] | range:20">-->
+                <!--<span class="user">{{ users[i]['entry_user'].name }}</span>-->
+            <!--</div>-->
+        <!--</div>-->
+    </div>
+    <!--<div>{{entryLineup.contest.startTime}}</div>-->
+    <div class="ma-contest-lu">
+        <div class="helper-head" data-layout="row" data-layout-align="space-between center">
+            <div class="description">Your Lineup in this contest</div>
+            <div><md-button class="md-primary md-raised">Edit Lineup</md-button></div>
+        </div>
+        <ul class="players">
+            <li>
+                <div>
+                    <div>PG</div>
+                    <div class="img" style="background-image: url({{entryLineup.pos_pg.imageUrl}})"></div>
+                    <div class="player-name">
+                        <div>{{entryLineup.pos_pg.firstName}}</div>
+                        <div>{{entryLineup.pos_pg.lastName}}</div>
+                    </div>
+                    <div class="ma-mgt-6">
+                        <div><strong>{{entryLineup.pos_pg.team.abbr}}</strong>{{entryLineup.pos_pg.game.opponent}}</div>
+                        <div class="player-salary">${{entryLineup.pos_pg.salary}}</div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <div>SG</div>
+                    <div class="img" style="background-image: url({{entryLineup.pos_sg.imageUrl}})"></div>
+                    <div class="player-name">
+                        <div>{{entryLineup.pos_sg.firstName}}</div>
+                        <div>{{entryLineup.pos_sg.lastName}}</div>
+                    </div>
+                    <div class="ma-mgt-6">
+                        <div><strong>{{entryLineup.pos_sg.team.abbr}}</strong>{{entryLineup.pos_sg.game.opponent}}</div>
+                        <div class="player-salary">${{entryLineup.pos_sg.salary}}</div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <div>G</div>
+                    <div class="img" style="background-image: url({{entryLineup.pos_g.imageUrl}})"></div>
+                    <div class="player-name">
+                        <div>{{entryLineup.pos_g.firstName}}</div>
+                        <div>{{entryLineup.pos_g.lastName}}</div>
+                    </div>
+                    <div class="ma-mgt-6">
+                        <div><strong>{{entryLineup.pos_g.team.abbr}}</strong>{{entryLineup.pos_g.game.opponent}}</div>
+                        <div class="player-salary">${{entryLineup.pos_g.salary}}</div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <div>SF</div>
+                    <div class="img" style="background-image: url({{entryLineup.pos_sf.imageUrl}})"></div>
+                    <div class="player-name">
+                        <div>{{entryLineup.pos_sf.firstName}}</div>
+                        <div>{{entryLineup.pos_sf.lastName}}</div>
+                    </div>
+                    <div class="ma-mgt-6">
+                        <div><strong>{{entryLineup.pos_sf.team.abbr}}</strong>{{entryLineup.pos_sf.game.opponent}}</div>
+                        <div class="player-salary">${{entryLineup.pos_sf.salary}}</div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <div>PF</div>
+                    <div class="img" style="background-image: url({{entryLineup.pos_pf.imageUrl}})"></div>
+                    <div class="player-name">
+                        <div>{{entryLineup.pos_pf.firstName}}</div>
+                        <div>{{entryLineup.pos_pf.lastName}}</div>
+                    </div>
+                    <div class="ma-mgt-6">
+                        <div><strong>{{entryLineup.pos_pf.team.abbr}}</strong>{{entryLineup.pos_pf.game.opponent}}</div>
+                        <div class="player-salary">${{entryLineup.pos_pf.salary}}</div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <div>F</div>
+                    <div class="img" style="background-image: url({{entryLineup.pos_f.imageUrl}})"></div>
+                    <div class="player-name">
+                        <div>{{entryLineup.pos_f.firstName}}</div>
+                        <div>{{entryLineup.pos_f.lastName}}</div>
+                    </div>
+                    <div class="ma-mgt-6">
+                        <div><strong>{{entryLineup.pos_f.team.abbr}}</strong>{{entryLineup.pos_f.game.opponent}}</div>
+                        <div class="player-salary">${{entryLineup.pos_f.salary}}</div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <div>C</div>
+                    <div class="img" style="background-image: url({{entryLineup.pos_c.imageUrl}})"></div>
+                    <div class="player-name">
+                        <div>{{entryLineup.pos_c.firstName}}</div>
+                        <div>{{entryLineup.pos_c.lastName}}</div>
+                    </div>
+                    <div class="ma-mgt-6">
+                        <div><strong>{{entryLineup.pos_c.team.abbr}}</strong>{{entryLineup.pos_c.game.opponent}}</div>
+                        <div class="player-salary">${{entryLineup.pos_c.salary}}</div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <div>UTIL</div>
+                    <div class="img" style="background-image: url({{entryLineup.pos_utils.imageUrl}})"></div>
+                    <div class="player-name">
+                        <div>{{entryLineup.pos_utils.firstName}}</div>
+                        <div>{{entryLineup.pos_utils.lastName}}</div>
+                    </div>
+                    <div class="ma-mgt-6">
+                        <div><strong>{{entryLineup.pos_utils.team.abbr}}</strong>{{entryLineup.pos_utils.game.opponent}}</div>
+                        <div class="player-salary">${{entryLineup.pos_utils.salary}}</div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="horizontal wrap" data-layout="row">
+        <div data-layout="column" data-layout-align="center center" class="hr-game-size normal px-8">
+            <div>{{matches.length}}</div>
+            <div>GAMES</div>
+        </div>
+        <div class="ma-hr-prev btn prevPage" data-layout="row" data-layout-align="center center">
+            <i class="material-icons nav md-22">chevron_left</i>
+        </div>
+        <div class="frame" id="contestMatches" data-flex="100">
+            <ul class="items">
+                <li class="ma-hr-team" ng-repeat="match in matches"
+                    sly-horizontal-repeat data-sly-options="{speed: 300,mouseDragging:0}">
+                    <div class="ma-hr-box">
+                        <div class="py-6 px-8">
+                            <div class="ma-hr-time">{{ match.startTime | asDate | date: 'EEEE, h:mm a' }}
+                            </div>
+                            <div class="ma-hr-team">{{ match.home_team.abbr }}</div>
+                            <div class="ma-hr-team">{{ match.away_team.abbr }}</div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="ma-hr-next btn nextPage">
+            <i class="material-icons nav md-22">chevron_right</i>
+        </div>
+    </div>
+</div>

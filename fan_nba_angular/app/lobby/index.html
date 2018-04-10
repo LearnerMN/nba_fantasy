@@ -1,0 +1,42 @@
+<div data-layout="row" class="ma-header" data-layout-align="space-between center">
+    <div>
+        <h4 class="md-title ma-mg-0 ma-mgb-4">Daily Fantasy Sports Contests</h4>
+    </div>
+    <div data-layout="row" data-layout-align="end center" data-flex="40">
+        <md-input-container class="md-icon-float md-block no-errors full-width">
+            <label for="searchPlayer">Search Contests</label>
+            <md-icon><i class="material-icons md-22">search</i></md-icon>
+            <input id="searchPlayer" ng-model="query">
+        </md-input-container>
+    </div>
+</div>
+<table md-colresize="md-colresize" class="md-table ma-table ma-mgt-20">
+    <thead>
+    <tr class="md-table-headers-row">
+        <th class="md-table-header ta-center"></th>
+        <th class="md-table-header ta-start">Contest</th>
+        <th class="md-table-header ta-end">Entries/Size</th>
+        <th class="md-table-header ta-end">Entry</th>
+        <th class="md-table-header ta-end ten-width">Prizes</th>
+        <th class="md-table-header ta-start">Starts (ET)</th>
+        <th class="md-table-header ten-width"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="contest in contests | filter:query" class="md-table-content-row ma-lu-player"
+        ng-click="showContestData($event,contest.id)">
+        <td class="md-table-content ta-center"><span>icon</span></td>
+        <td class="md-table-content ta-start"><a>{{ contest.title }}</a></td>
+        <td class="md-table-content ta-end"><span>{{ contest.entryCount }}/{{ contest.entryLimit }}</span></td>
+        <td class="md-table-content ta-end"><span><strong>{{ contest.entryFee | asFree }}</strong></span></td>
+        <td class="md-table-content ta-end"><span>${{ contest.totalPrize }}</span></td>
+        <td class="md-table-content ta-start"><span>{{ contest.startTime | asDate | date: 'EEEE, h:mm a' }}</span></td>
+        <td class="md-table-content ta-center">
+            <md-button class="md-raised md-primary"
+                       ng-click="enterContest($event,contest.index)">
+                Enter contest
+            </md-button>
+        </td>
+    </tr>
+    </tbody>
+</table>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/activity_horizontal_margin">
+    <ImageView
+        android:id="@+id/home_team_img"
+        android:layout_width="@dimen/team_img_size"
+        android:layout_height="@dimen/team_img_size"
+        android:adjustViewBounds="true"
+        android:src="@drawable/por"
+        android:layout_alignParentLeft="true"
+        android:layout_centerInParent="true"/>
+    <ImageView
+        android:id="@+id/away_team_img"
+        android:layout_width="@dimen/team_img_size"
+        android:layout_height="@dimen/team_img_size"
+        android:adjustViewBounds="true"
+        android:src="@drawable/por"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"/>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true">
+        <TextView
+            android:id="@+id/start_time_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Today, 7:30 PM"
+            android:textColor="@android:color/white"
+            android:layout_centerInParent="true"
+            android:layout_alignParentTop="true"/>
+        <TextView
+            android:id="@+id/team_vs_txt"
+            android:layout_below="@id/start_time_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:layout_centerInParent="true"
+            android:text="BOS vs HOU"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"/>
+    </RelativeLayout>
+</RelativeLayout>

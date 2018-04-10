@@ -1,0 +1,126 @@
+<div>
+    <div class="ma-header">
+        <h3 class="md-headline">Create a contest</h3>
+    </div>
+    <div>
+        <form name="createConstestForm">
+            <div class="py-10">
+                <div class="ma-subhead"><h4 class="md-subhead ma-mg-0">Entry Options</h4></div>
+                <div class="ft-inline">
+                    <label for="entryLimit">ENTRY LIMIT</label><br>
+                    <select ng-model="createDetail.entryLimit" id="entryLimit" ng-required="true">
+                        <option value="2">2(Head to Head)</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                    </select>
+                </div>
+                <div class="ft-inline">
+                    <label for="entryFee">ENTRY FEE</label><br>
+                    <select ng-model="createDetail.entryFee" id="entryFee" ng-required="true">
+                        <option value="0">Free</option>
+                        <option value="1">$1.00</option>
+                        <option value="2">$2.00</option>
+                        <option value="5">$5.00</option>
+                        <option value="10">$10.00</option>
+                        <option value="25">$25.00</option>
+                        <option value="50">$50.00</option>
+                        <option value="109">$109.00</option>
+                        <option value="270">$270.00</option>
+                        <option value="530">$530.00</option>
+                    </select>
+                </div>
+                <div class="ft-inline">
+                    <label for="entryPrize">PRIZE STRUCTURE</label><br>
+                    <select ng-model="createDetail.entryPrize" id="entryPrize" ng-required="true">
+                        <option value="0">Winner Takes All</option>
+                        <option value="1">Top 3 Win</option>
+                        <option value="2">Top 1/3 Win</option>
+                        <option value="5">50-50</option>
+                    </select>
+                </div>
+                <div class="ft-inline">
+                    <label for="title">CONTEST NAME</label><br>
+                    <input id="title" type="text" ng-model="createDetail.title"
+                           value="{{createDetail.entryFee}} {{createDetail.entryLimit}}" ng-required="true">
+                </div>
+            </div>
+            <div class="py-10">
+                <div class="ma-subhead"><h4 class="md-subhead ma-mg-0">When do you want to play?</h4></div>
+                <div class="ft-inline">
+                    <select ng-required="true"
+                            ng-model="holder"
+                            required="required"
+                            ng-options="holder as (holder.start_time | asDate | date: 'EEEE, h:mm a' ) + (' ('+holder.matches.length + ' Nba Games)') for holder in holders"
+                            ng-change="reloadSly('#holderMatches')">
+                    </select>
+                </div>
+                <div class="horizontal wrap" data-layout="row">
+                    <div class="ma-hr-prev btn prevPage">
+                        <i class="material-icons nav md-22">chevron_left</i>
+                    </div>
+                    <div class="frame" id="holderMatches" data-flex="100">
+                        <ul class="items">
+                            <li class="ma-hr-team" ng-repeat="match in holder.matches"
+                                sly-horizontal-repeat data-sly-options="{speed: 300,mouseDragging:0}">
+                                <div class="ma-hr-box">
+                                    <div class="py-6 px-8">
+                                        <div class="ma-hr-time">{{ match.startTime | asDate | date: 'EEEE, h:mm a' }}</div>
+                                        <div class="ma-hr-team">{{ match.home_team.abbr }}</div>
+                                        <div class="ma-hr-team">{{ match.away_team.abbr }}</div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="ma-hr-next btn nextPage">
+                        <i class="material-icons nav md-22">chevron_right</i>
+                    </div>
+                </div>
+            </div>
+            <div class="py-10">
+                <div class="ma-subhead"><h4 class="md-subhead ma-mg-0">Who can see and join your contest?</h4></div>
+                <div class="py-10">
+                    <md-radio-group ng-model="createDetail.scope" layout="row" flex="50" ng-required="true">
+                        <div flex="50">
+                            <md-radio-button value="private" class="ma-rd-green">Games are invite only. Games will not be posted in our lobby.
+                            </md-radio-button>
+                        </div>
+                        <div flex="50">
+                            <md-radio-button value="public" class="ma-rd-green">Games are posted in our lobby and available
+                                for anyone to join.
+                            </md-radio-button>
+                        </div>
+                    </md-radio-group>
+                </div>
+            </div>
+            <div class="py-16 sbt-contest">
+                <div data-layout="row" data-layout-align="space-between center">
+                    <div flex="80">
+                        <div>Your Entry Fee:: {{ createDetail.entryFee | asFree }}</div>
+                        <div>If this contest doesn't fill, it won't run and we will refund entry fees.</div>
+                    </div>
+                    <div flex="20">
+                        <md-button type="submit" class="md-raised md-primary" ng-click="createConstestForm.$valid && createContest()">Submit</md-button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

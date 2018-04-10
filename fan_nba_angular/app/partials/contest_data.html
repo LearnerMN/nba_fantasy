@@ -1,0 +1,85 @@
+<md-dialog data-flex="50" class="ma-dialog">
+    <!--<md-toolbar></md-toolbar>-->
+    <md-dialog-content>
+        <md-content class="md-dialog-content">
+            <div class="ma-header">
+                <div>
+                    <h4 class="md-title ma-mg-0 ma-mgb-4">{{contestData.title}}</h4>
+                </div>
+                <div class="ma-cont-start">
+                    Starts {{contestData.startTime | asDate | date: 'EEEE, h:mm a'}} EST (<span>{{matches.length}}NBA Games</span>)
+                </div>
+            </div>
+            <div data-layout="row" data-layout-align="left center" class="py-16">
+                <div class="px-20">
+                    <div class="ma-cont-prop-key">ENTRIES</div>
+                    <div class="ma-cont-prop-value">{{contestData.entryCount}}/{{contestData.entryLimit}}
+                    </div>
+                </div>
+                <div class="px-20">
+                    <div class="ma-cont-prop-key">ENTRY FEE</div>
+                    <div class="ma-cont-prop-value">{{ contestData.entryFee | asFree}}</div>
+                </div>
+                <div class="px-20">
+                    <div class="ma-cont-prop-key">PRIZE POOL</div>
+                    <div class="ma-cont-prop-value">{{ contestData.totalPrize }}$</div>
+                </div>
+            </div>
+            <div>
+                <div class="ma-cont-start">
+                    Free to enter. Pick players from {{matches.length}} Basketball games. Score the most fantasy points
+                    to win bragging rights. Good luck!
+                </div>
+                <div>
+                    <div class="horizontal wrap" data-layout="row">
+                        <div data-layout="column" data-layout-align="center center" class="hr-game-size px-8">
+                            <div>{{matches.length}}</div>
+                            <div>GAMES</div>
+                        </div>
+                        <div class="ma-hr-prev btn prevPage" data-layout="row" data-layout-align="center center">
+                            <i class="material-icons nav md-22">chevron_left</i>
+                        </div>
+                        <div class="frame" id="contestMatches" data-flex="100">
+                            <ul class="items">
+                                <li class="ma-hr-team" ng-repeat="match in matches"
+                                    sly-horizontal-repeat data-sly-options="{speed: 300,mouseDragging:0}">
+                                    <div class="ma-hr-box">
+                                        <div class="py-6 px-8">
+                                            <div class="ma-hr-time">{{ match.startTime | asDate | date: 'EEEE, h:mm a'
+                                                }}
+                                            </div>
+                                            <div class="ma-hr-team">{{ match.home_team.abbr }}</div>
+                                            <div class="ma-hr-team">{{ match.away_team.abbr }}</div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="ma-hr-next btn nextPage">
+                            <i class="material-icons nav md-22">chevron_right</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <md-content class="ma-cont-pop-users" data-layout="row">
+                <div data-flex="50"></div>
+                <div data-flex="50">
+                    <div class="ma-cont-prop-key left">ENTRANTS ({{contestData.entryCount}}/{{contestData.entryLimit}})</div>
+                    <div ng-repeat="user in users"
+                         class="users">
+                        <img src="assets/img/default_avatar.png"/>
+                        <span>
+                            {{user.entry_user.id}}
+                        </span>
+                        <span>
+                            {{user.entry_user.name}}
+                        </span>
+                    </div>
+                </div>
+            </md-content>
+        </md-content>
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+    </md-dialog-actions>
+</md-dialog>
